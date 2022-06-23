@@ -28,6 +28,9 @@ type Config struct {
 	// Number of times to connect. The time spent by every connection will
 	// be measured and the results will be summarized.
 	Count int
+
+	// SNI of TLS connection.
+	Host string
 }
 
 // Ping establishes network connections to the specified network addr
@@ -44,6 +47,9 @@ func Ping(addr string, config *Config) (PingResult, error) {
 		config.Count = 1
 	}
 	host, ipAddr, port, err := resolveAddr(addr)
+	if config.Host != "" {
+		host = config.Host
+	}
 	if err != nil {
 		return PingResult{}, err
 	}

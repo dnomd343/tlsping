@@ -8,7 +8,7 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/airnandez/tlsping"
+	"github.com/dnomd343/tlsping"
 )
 
 func main() {
@@ -18,6 +18,7 @@ func main() {
 	}
 	tcpOnly := fset.Bool("tcponly", false, "")
 	count := fset.Int("c", defaultIterations, "")
+	host := fset.String("host", "", "")
 	jsonOutput := fset.Bool("json", false, "")
 	insecure := fset.Bool("insecure", false, "")
 	ca := fset.String("ca", "", "")
@@ -56,6 +57,7 @@ func main() {
 	}
 	config := tlsping.Config{
 		Count:              *count,
+		Host:               *host,
 		AvoidTLSHandshake:  *tcpOnly,
 		InsecureSkipVerify: *insecure,
 		RootCAs:            caCerts,
@@ -70,7 +72,7 @@ func main() {
 		s = "TCP"
 	}
 	if !*jsonOutput {
-		outlog.Printf("%s connection to %s (%s) (%d connections)\n", s, serverAddr, result.IPAddr, *count)
+		outlog.Printf("%s connection to %s (%s | %s) (%d connections)\n", s, serverAddr, result.IPAddr, result.Host, *count)
 		outlog.Printf("min/avg/max/stddev = %s/%s/%s/%s\n", result.MinStr(), result.AvgStr(), result.MaxStr(), result.StdStr())
 		os.Exit(0)
 	}

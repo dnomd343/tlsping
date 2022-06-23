@@ -19,7 +19,7 @@ func printUsage(f *os.File, kind usageType) {
 	const template = `
 USAGE:
 {{.Tab1}}{{.AppName}} [-c count] [-tcponly] [-json] [-ca=<file>]
-{{.Tab1}}{{.AppNameFiller}} [-insecure] <server address>
+{{.Tab1}}{{.AppNameFiller}} [-insecure] [-host=<sni>] <server address>
 {{.Tab1}}{{.AppName}} -help
 {{.Tab1}}{{.AppName}} -version
 {{if eq .UsageVersion "short"}}
@@ -52,6 +52,9 @@ OPTIONS:
 {{.Tab2}}to servers which use custom not widely trusted certificates, for
 {{.Tab2}}instance, development servers using self-signed certificates.
 
+{{.Tab1}}-host <sni>
+{{.Tab2}}Specifies the SNI parameter of the tls connection.
+
 {{.Tab1}}-ca <file>
 {{.Tab2}}PEM-formatted file containing the CA certificates this program trusts.
 {{.Tab2}}Default: use this host's CA certificate store.
@@ -71,6 +74,11 @@ EXAMPLES:
 {{.Tab1}}handshaking with host 'mail.google.com' port 443 use:
 
 {{.Tab3}}{{.AppName}} mail.google.com:443
+
+{{.Tab1}}Initiate a tls request to an ip address and specify sni information
+{{.Tab1}}at the same time:
+
+{{.Tab3}}{{.AppName}} -host ip.343.re 8.210.148.24:443
 
 {{.Tab1}}To measure the time to establishing a TCP connection (i.e. without
 {{.Tab1}}performing TLS handshaking) to host at IPv6 address
