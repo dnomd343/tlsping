@@ -7,8 +7,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
-
-	"github.com/dnomd343/tlsping"
+	"tlsping"
 )
 
 func main() {
