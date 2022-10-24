@@ -21,6 +21,10 @@ Author:
 
 Source code and documentation:
 {{.Tab1}}https://github.com/airnandez/{{.AppName}}
+
+This is a fork version:
+{{.Tab1}}https://github.com/dnomd343/{{.AppName}}
+
 `
 	render(template, tmplFields, f)
 }
