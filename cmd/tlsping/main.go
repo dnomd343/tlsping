@@ -20,6 +20,7 @@ func main() {
 	host := fset.String("host", "", "")
 	jsonOutput := fset.Bool("json", false, "")
 	insecure := fset.Bool("insecure", false, "")
+	raw := fset.Bool("raw", false, "")
 	ca := fset.String("ca", "", "")
 	version := fset.Bool("version", false, "")
 	help := fset.Bool("help", false, "")
@@ -72,8 +73,10 @@ func main() {
 	}
 	if !*jsonOutput {
 		outlog.Printf("%s connection to %s (%s | %s) (%d connections)\n", s, serverAddr, result.IPAddr, result.Host, *count)
-		for _, delay := range result.Result {
-			fmt.Printf("%.6fs\n", delay)
+		if *raw { // show raw delay value
+			for _, delay := range result.Result {
+				fmt.Printf("%.6fs\n", delay)
+			}
 		}
 		outlog.Printf("min/avg/max/stddev = %s/%s/%s/%s\n", result.MinStr(), result.AvgStr(), result.MaxStr(), result.StdStr())
 		os.Exit(0)

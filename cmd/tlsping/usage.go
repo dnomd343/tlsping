@@ -63,6 +63,9 @@ OPTIONS:
 {{.Tab2}}Format the result in JSON format and print to standard output. Reported
 {{.Tab2}}times are understood in seconds.
 
+{{.Tab1}}-raw
+{{.Tab2}}Show all raw latency result to standard output.
+
 {{.Tab1}}-help
 {{.Tab2}}Prints this help
 
