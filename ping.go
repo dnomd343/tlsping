@@ -115,6 +115,7 @@ func Ping(addr string, config *Config) (PingResult, error) {
 		}
 		durations = append(durations, res.seconds)
 	}
+	result.Result = durations // save raw result
 	result.setSummaryStats(summarize(durations))
 	return result, nil
 }

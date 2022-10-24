@@ -26,6 +26,9 @@ type PingResult struct {
 	// Average and standard deviation of the observed connection
 	// times, in seconds
 	Avg, Std float64
+
+	// Result with all latency times, in seconds
+	Result []float64
 }
 
 // setSummaryStats sets the summary stats passed as arguments to the ping

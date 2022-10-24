@@ -72,6 +72,9 @@ func main() {
 	}
 	if !*jsonOutput {
 		outlog.Printf("%s connection to %s (%s | %s) (%d connections)\n", s, serverAddr, result.IPAddr, result.Host, *count)
+		for _, delay := range result.Result {
+			fmt.Printf("%.6fs\n", delay)
+		}
 		outlog.Printf("min/avg/max/stddev = %s/%s/%s/%s\n", result.MinStr(), result.AvgStr(), result.MaxStr(), result.StdStr())
 		os.Exit(0)
 	}
@@ -87,6 +90,7 @@ func main() {
 		Count:      result.Count,
 		Avg:        result.Avg,
 		Std:        result.Std,
+		Raw:        result.Result,
 	}
 	if err != nil {
 		jsonRes.Error = fmt.Sprintf("%s", err)
@@ -101,16 +105,17 @@ func main() {
 }
 
 type JsonResult struct {
-	Host       string  `json:"host"`
-	IPAddr     string  `json:"ip"`
-	ServerAddr string  `json:"address"`
-	Connection string  `json:"connection"`
-	Count      int     `json:"count"`
-	Min        float64 `json:"min"`
-	Max        float64 `json:"max"`
-	Avg        float64 `json:"average"`
-	Std        float64 `json:"stddev"`
-	Error      string  `json:"error"`
+	Host       string    `json:"host"`
+	IPAddr     string    `json:"ip"`
+	ServerAddr string    `json:"address"`
+	Connection string    `json:"connection"`
+	Count      int       `json:"count"`
+	Min        float64   `json:"min"`
+	Max        float64   `json:"max"`
+	Avg        float64   `json:"average"`
+	Std        float64   `json:"stddev"`
+	Error      string    `json:"error"`
+	Raw        []float64 `json:"raw"`
 }
 
 func loadCaCerts(path string) (*x509.CertPool, error) {
